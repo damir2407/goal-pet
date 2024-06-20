@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: goal-pet
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+    url: jdbc:postgresql://postgres:5432/${POSTGRES_DB}
+
+server:
+  port: ${SERVER_PORT}
