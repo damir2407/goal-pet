@@ -6,6 +6,15 @@ spring:
     username: ${POSTGRES_USER}
     password: ${POSTGRES_PASSWORD}
     url: jdbc:postgresql://postgres:5432/${POSTGRES_DB}
+  jpa:
+    hibernate:
+      ddl-auto: update
 
 server:
   port: ${SERVER_PORT}
+
+application:
+  async:
+    core-pool-size: 10
+    max-pool-size: 50
+    queue-capacity: 10000
