@@ -1,5 +1,7 @@
 package org.example.goalpet.domain
 
+import com.fasterxml.jackson.annotation.JsonIgnore
+import jakarta.persistence.Enumerated
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
@@ -11,6 +13,7 @@ abstract class BaseEntity<T> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     var id: T? = null
 
     override fun equals(other: Any?): Boolean {

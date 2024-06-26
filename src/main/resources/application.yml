@@ -3,15 +3,15 @@ spring:
     name: goal-pet
   datasource:
     driver-class-name: org.postgresql.Driver
-    username: ${POSTGRES_USER}
-    password: ${POSTGRES_PASSWORD}
-    url: jdbc:postgresql://postgres:5432/${POSTGRES_DB}
+    username: postgres
+    password: postgres
+    url: jdbc:postgresql://postgres:5432/postgres
   jpa:
     hibernate:
       ddl-auto: update
 
 server:
-  port: ${SERVER_PORT}
+  port: 8080
 
 application:
   async:
