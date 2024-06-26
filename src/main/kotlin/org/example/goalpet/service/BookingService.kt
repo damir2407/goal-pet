@@ -5,6 +5,8 @@ import org.example.goalpet.domain.Booking
 import org.example.goalpet.domain.Hotel
 import org.example.goalpet.dto.request.BookingRequest
 import org.example.goalpet.dto.response.BookingSuccessResponse
+import org.example.goalpet.exception.RoomException
+import org.example.goalpet.exception.VisitorException
 import org.example.goalpet.repository.BookingRepository
 import org.example.goalpet.repository.RoomRepository
 import org.example.goalpet.repository.VisitorRepository
@@ -33,14 +35,19 @@ class BookingService(
         .build<Hotel, AtomicInteger>().asMap()
 
     fun bookRoom(request: BookingRequest): BookingSuccessResponse {
-        val visitor = visitorRepository.findByUsername(request.username) ?: error("No username found")
-        var room = roomRepository.findById(request.roomId).orElseThrow()//TODO
+        val visitor = visitorRepository.findByUsername(request.username)
+            ?: throw VisitorException("Пользователь с именем ${request.username} не найден!")
+        var room = roomRepository.findById(request.roomId).orElseThrow {
+            RoomException("Комната ${request.roomId} не найдена!")
+        }
 
         if (room.availibility) {
             val lock = locks.computeIfAbsent(request.roomId) { ReentrantLock() }
             lock.lock()
             try {
-                room = roomRepository.findById(request.roomId).orElseThrow()//TODO
+                room = roomRepository.findById(request.roomId).orElseThrow {
+                    RoomException("Комната ${request.roomId} не найдена!")
+                }
                 if (room.availibility) {
                     val booking = bookingRepository.save(
                         Booking(
@@ -66,7 +73,7 @@ class BookingService(
             }
         }
 
-        error("Номер занят!")
+        throw RoomException("Комната ${request.roomId} уже занята. Выберите другую комнату")
     }
 
     fun getHotelRequests(): List<HotelBookingRequest> {

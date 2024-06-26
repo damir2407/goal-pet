@@ -1,11 +1,11 @@
 package org.example.goalpet.controller
 
+import jakarta.validation.Valid
 import org.example.goalpet.config.TASK_EXECUTOR_CONTROLLER
 import org.example.goalpet.domain.Visitor
 import org.example.goalpet.dto.request.VisitorCreateRequest
 import org.example.goalpet.service.VisitorService
 import org.springframework.data.domain.Page
-import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.scheduling.annotation.Async
 import org.springframework.web.bind.annotation.GetMapping
@@ -31,12 +31,11 @@ class VisitorController(
         return visitorService
             .findAllVisitors(page, size)
             .thenApply { ResponseEntity.ok(it) }
-            .exceptionally { ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build() }
     }
 
     @PostMapping
     fun createVisitor(
-        @RequestBody request: VisitorCreateRequest
+        @RequestBody @Valid request: VisitorCreateRequest
     ): Visitor {
         return visitorService.createVisitor(request)
     }

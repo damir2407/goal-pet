@@ -24,6 +24,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("io.github.microutils:kotlin-logging:3.0.4")
     implementation("com.google.guava:guava:27.0.1-jre")
 

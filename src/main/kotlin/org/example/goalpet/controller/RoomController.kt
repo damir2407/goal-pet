@@ -4,7 +4,6 @@ import org.example.goalpet.config.TASK_EXECUTOR_CONTROLLER
 import org.example.goalpet.domain.Room
 import org.example.goalpet.service.RoomService
 import org.springframework.data.domain.Page
-import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.scheduling.annotation.Async
 import org.springframework.web.bind.annotation.GetMapping
@@ -29,6 +28,5 @@ class RoomController(
         return roomService
             .findAllRoomsByHotel(page, size, hotelName)
             .thenApply { ResponseEntity.ok(it) }
-            .exceptionally { ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build() }
     }
 }

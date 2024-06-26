@@ -6,7 +6,6 @@ import org.example.goalpet.service.BookingService
 import org.example.goalpet.service.BookingService.HotelBookingRequest
 import org.example.goalpet.service.HotelService
 import org.springframework.data.domain.Page
-import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.scheduling.annotation.Async
 import org.springframework.web.bind.annotation.GetMapping
@@ -31,7 +30,6 @@ class HotelController(
         return hotelService
             .findAllHotels(page, size)
             .thenApply { ResponseEntity.ok(it) }
-            .exceptionally { ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build() }
     }
 
     @GetMapping("booking-requests")

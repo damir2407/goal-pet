@@ -1,5 +1,6 @@
 package org.example.goalpet.controller
 
+import jakarta.validation.Valid
 import org.example.goalpet.dto.request.BookingRequest
 import org.example.goalpet.dto.response.BookingSuccessResponse
 import org.example.goalpet.service.BookingService
@@ -16,7 +17,7 @@ class BookingController(
 
     @PostMapping
     fun bookRoom(
-        @RequestBody request: BookingRequest
+        @RequestBody @Valid request: BookingRequest
     ): BookingSuccessResponse {
         return bookingService.bookRoom(request)
     }

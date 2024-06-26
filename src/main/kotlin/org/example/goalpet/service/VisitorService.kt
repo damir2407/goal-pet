@@ -5,6 +5,7 @@ import mu.KLogging
 import org.example.goalpet.config.TASK_EXECUTOR_SERVICE
 import org.example.goalpet.domain.Visitor
 import org.example.goalpet.dto.request.VisitorCreateRequest
+import org.example.goalpet.exception.VisitorException
 import org.example.goalpet.repository.VisitorRepository
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
@@ -46,7 +47,7 @@ class VisitorService(
                 lock.unlock()
             }
         }
-        return visitor ?: error("Произошла ошибка!")
+        return visitor ?: throw VisitorException("Пользователь ${request.username} уже зарегистрирован!")
     }
 
     companion object : KLogging()
